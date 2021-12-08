@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/binding/init_binding.dart';
 import 'package:flutter_application_1/route/route.dart';
 import 'package:get/get.dart';
 
@@ -13,7 +14,12 @@ class MyApp extends StatelessWidget {
       title: "Youtube Clone App",
       theme: ThemeData(
         primaryColor: Colors.blue,
+        bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+          selectedItemColor: Colors.black,
+        ),
       ),
+      initialBinding: InitBinding(),
+      initialRoute: "/",
       getPages: routes,
     );
   }
