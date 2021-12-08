@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/controller/app_controller.dart';
+import 'package:flutter_application_1/src/controller/app_controller.dart';
 import 'package:get/get.dart';
 
 class AppBottomNavigationBar extends StatelessWidget {
@@ -13,10 +13,11 @@ class AppBottomNavigationBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Obx(
       () => BottomNavigationBar(
+        elevation: 15,
         type: BottomNavigationBarType.fixed,
         currentIndex: controller.currentIndex.value,
         onTap: (index) {
-          controller.currentIndex(index);
+          controller.changePageIndex(index);
         },
         items: const [
           BottomNavigationBarItem(
