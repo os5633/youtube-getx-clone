@@ -52,6 +52,7 @@ class CustomAppBar extends StatelessWidget {
           width: 15,
         ),
         const CircleAvatar(
+          radius: 16,
           backgroundImage: NetworkImage(
             "https://w.namu.la/s/e1203086a408b9b55a50210bf3e08d6e7646d659853010adb9bb76acede0dded64c90aaaaa78fcc5c788f304a01d459cf6b659654beac249814f1196c65413ecd88ac7030dde18242d2c46f1f87abab2",
           ),
