@@ -6,7 +6,10 @@ class Video extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: [_thumbnail(), _simpDetailInfo()],
+      children: [
+        _thumbnail(),
+        _simpDetailInfo(),
+      ],
     );
   }
 
@@ -35,11 +38,12 @@ class Video extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       const Flexible(
-                          child: Text(
-                        "삼시세끼삼시세끼삼시세끼삼시세끼삼시세끼삼시세끼삼시세끼 다시보기삼시세끼삼시세끼삼시세끼삼시세끼삼시세끼삼시세끼삼시세끼 다시보기삼시세끼삼시세끼삼시세끼삼시세끼삼시세끼삼시세끼삼시세끼 다시보기삼시세끼삼시세끼삼시세끼삼시세끼삼시세끼삼시세끼삼시세끼 다시보기",
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                      )),
+                        child: Text(
+                          "삼시세끼삼시세끼삼시세끼삼시세끼삼시세끼삼시세끼삼시세끼 다시보기삼시세끼삼시세끼삼시세끼삼시세끼삼시세끼삼시세끼삼시세끼 다시보기삼시세끼삼시세끼삼시세끼삼시세끼삼시세끼삼시세끼삼시세끼 다시보기삼시세끼삼시세끼삼시세끼삼시세끼삼시세끼삼시세끼삼시세끼 다시보기",
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
                       IconButton(
                         onPressed: () {},
                         icon: const Icon(
@@ -50,7 +54,10 @@ class Video extends StatelessWidget {
                   ),
                   const Text(
                     "TVN ENT · 조회수 9.9만회 · 10개월 전",
-                    style: TextStyle(color: Colors.black54, fontSize: 13),
+                    style: TextStyle(
+                      color: Colors.black54,
+                      fontSize: 13,
+                    ),
                   ),
                 ],
               ),
