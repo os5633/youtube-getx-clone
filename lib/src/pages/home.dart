@@ -14,6 +14,7 @@ class Home extends StatelessWidget {
     return SafeArea(
       child: Obx(
         () => CustomScrollView(
+          controller: controller.scrollController,
           slivers: [
             const SliverAppBar(
               title: CustomAppBar(),
@@ -25,7 +26,8 @@ class Home extends StatelessWidget {
                 (context, index) {
                   return InkWell(
                     onTap: () {
-                      Get.toNamed("/videoview/233");
+                      Get.toNamed(
+                          "/videoview/${controller.youtubeResult.value.items![index].id.videoId}");
                     },
                     child: VideoItem(
                         video: controller.youtubeResult.value.items![index]),

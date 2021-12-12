@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/src/controller/video_controller.dart';
 import 'package:flutter_application_1/src/model/video.dart';
@@ -16,11 +17,11 @@ class VideoItem extends StatefulWidget {
 
 class _VideoItemState extends State<VideoItem> {
   final dynamic unescape = HtmlUnescape();
-  VideoConstroller? _videoConstroller;
+  VideoController? _videoController;
 
   @override
   void initState() {
-    _videoConstroller = Get.put(VideoConstroller(video: widget.video),
+    _videoController = Get.put(VideoController(video: widget.video),
         tag: widget.video.id.videoId);
     super.initState();
   }
@@ -35,9 +36,12 @@ class _VideoItemState extends State<VideoItem> {
     );
   }
 
-  Image _thumbnail() => Image.network(
-        widget.video.snippet.thumbnails.high.url,
-        fit: BoxFit.cover,
+  Widget _thumbnail() => CachedNetworkImage(
+        imageUrl: widget.video.snippet.thumbnails.high.url,
+        placeholder: (context, url) => Container(
+          height: 230,
+          color: Colors.grey.withOpacity(0.5),
+        ),
       );
 
   Padding _simpDetailInfo() => Padding(
@@ -47,7 +51,7 @@ class _VideoItemState extends State<VideoItem> {
             Obx(
               () => CircleAvatar(
                 backgroundImage:
-                    NetworkImage(_videoConstroller!.youtuberThumbnailUrl),
+                    NetworkImage(_videoController!.youtuberThumbnailUrl),
               ),
             ),
             const SizedBox(
@@ -87,7 +91,7 @@ class _VideoItemState extends State<VideoItem> {
                   ),
                   Obx(
                     () => Text(
-                      "${widget.video.snippet.channelTitle} · 조회수 ${_videoConstroller!.statistics.value.viewCount}회 · ${DateFormat("yyyy-MM-dd").format(widget.video.snippet.publishTime)}",
+                      "${widget.video.snippet.channelTitle} · 조회수 ${_videoController!.statistics.value.viewCount}회 · ${DateFormat("yyyy-MM-dd").format(widget.video.snippet.publishTime)}",
                       style: const TextStyle(
                         color: Colors.black54,
                         fontSize: 12,

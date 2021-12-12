@@ -30,5 +30,6 @@ class Statistics {
         "dislikeCount": dislikeCount,
         "favoriteCount": favoriteCount,
         "commentCount": commentCount,
+        "subscriberCount": subscriberCount,
       };
 }
