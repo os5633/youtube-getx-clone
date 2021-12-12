@@ -1,10 +1,3 @@
-import 'dart:convert';
-import 'package:html_unescape/html_unescape.dart';
-
-Video videoFromJson(String str) => Video.fromJson(json.decode(str));
-
-String videoToJson(Video data) => json.encode(data.toJson());
-
 class Video {
   Video({
     required this.kind,
@@ -12,8 +5,6 @@ class Video {
     required this.id,
     required this.snippet,
   });
-
-  var unescape = HtmlUnescape();
 
   String kind;
   String etag;
@@ -78,13 +69,15 @@ class Snippet {
 
   factory Snippet.fromJson(Map<String, dynamic> json) => Snippet(
         publishedAt: DateTime.parse(json["publishedAt"]),
-        channelId: json["channelId"],
+        channelId: json["channelId"] ?? "",
         title: json["title"],
         description: json["description"],
         thumbnails: Thumbnails.fromJson(json["thumbnails"]),
-        channelTitle: json["channelTitle"],
-        liveBroadcastContent: json["liveBroadcastContent"],
-        publishTime: DateTime.parse(json["publishTime"]),
+        channelTitle: json["channelTitle"] ?? "",
+        liveBroadcastContent: json["liveBroadcastContent"] ?? "",
+        publishTime: json["publishTime"] == null
+            ? DateTime.now()
+            : DateTime.parse(json["publishTime"]),
       );
 
   Map<String, dynamic> toJson() => {
