@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:flutter_application_1/src/controller/youtube_view_controller.dart';
 
-class VideoView extends StatelessWidget {
+import 'package:get/get.dart';
+import 'package:intl/intl.dart';
+import 'package:youtube_player_flutter/youtube_player_flutter.dart';
+
+class VideoView extends GetView<YoutubeViewController> {
   const VideoView({Key? key}) : super(key: key);
 
   @override
@@ -20,9 +24,34 @@ class VideoView extends StatelessWidget {
         ),
         body: Column(
           children: [
-            Container(
-              height: 250,
-              color: Colors.grey,
+            YoutubePlayer(
+              controller: controller.playerController!,
+              showVideoProgressIndicator: true,
+              progressIndicatorColor: Colors.blueAccent,
+              topActions: <Widget>[
+                const SizedBox(width: 8.0),
+                Expanded(
+                  child: Text(
+                    controller.playerController!.metadata.title,
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 18.0,
+                    ),
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
+                  ),
+                ),
+                IconButton(
+                  icon: const Icon(
+                    Icons.settings,
+                    color: Colors.white,
+                    size: 25.0,
+                  ),
+                  onPressed: () {},
+                ),
+              ],
+              onReady: () {},
+              onEnded: (data) {},
             ),
             _discription(),
           ],
@@ -60,10 +89,10 @@ class VideoView extends StatelessWidget {
       children: [
         Row(
           children: [
-            const CircleAvatar(
+            CircleAvatar(
               radius: 16,
               backgroundImage: NetworkImage(
-                "https://yt3.ggpht.com/tKtfZSpmxJ69Feq07qhRsY8-_LV6fQXtSoeLlxnCbNIGtICFXUhceHQqqu2PS3xpnPF8tIVbzg=s68-c-k-c0x00ffffff-no-rj",
+                controller.videoController!.youtuberThumbnailUrl,
               ),
             ),
             const SizedBox(
@@ -71,14 +100,14 @@ class VideoView extends StatelessWidget {
             ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: const [
+              children: [
                 Text(
-                  "TVN",
-                  style: TextStyle(fontWeight: FontWeight.bold),
+                  controller.videoController!.youtuber.value.snippet!.title,
+                  style: const TextStyle(fontWeight: FontWeight.bold),
                 ),
                 Text(
-                  "구독자 3만명",
-                  style: TextStyle(fontSize: 13),
+                  "구독자 ${controller.videoController!.youtuber.value.statistics!.subscriberCount}명",
+                  style: const TextStyle(fontSize: 13),
                 )
               ],
             )
@@ -100,8 +129,12 @@ class VideoView extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
-        _button(icon: Icons.thumb_up_alt_outlined, count: "10"),
-        _button(icon: Icons.thumb_down_alt_outlined, count: "10"),
+        _button(
+            icon: Icons.thumb_up_alt_outlined,
+            count: controller.videoController!.statistics.value.likeCount),
+        _button(
+            icon: Icons.thumb_down_alt_outlined,
+            count: controller.videoController!.statistics.value.dislikeCount),
         _button(icon: Icons.share, count: "공유"),
         _button(icon: Icons.queue, count: "저장"),
       ],
@@ -119,15 +152,20 @@ class VideoView extends StatelessWidget {
               const SizedBox(
                 height: 4,
               ),
-              Text(count!)
+              Text(
+                count!,
+                style: const TextStyle(
+                  fontSize: 13,
+                ),
+              ),
             ],
           ),
         ));
   }
 
   Text _subtitle() {
-    return const Text(
-      "Thank you for listening, I hope you will have a good time here",
+    return Text(
+      controller.videoController!.video!.snippet.description,
     );
   }
 
@@ -142,22 +180,22 @@ class VideoView extends StatelessWidget {
   Column _title() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: const [
+      children: [
         Text(
-          "삼시세끼 얼마나 재밌게요?",
-          style: TextStyle(
+          controller.title,
+          style: const TextStyle(
             color: Colors.black,
             fontSize: 16,
           ),
         ),
-        SizedBox(
+        const SizedBox(
           height: 4,
         ),
         Text(
-          "TVN ENT · 조회수 9.9만회 · 10개월 전",
-          style: TextStyle(
+          "조회수 ${controller.videoController!.statistics.value.viewCount}회 · ${DateFormat("yyyy-MM-dd").format(controller.videoController!.video!.snippet.publishTime)}",
+          style: const TextStyle(
             color: Colors.black54,
-            fontSize: 13,
+            fontSize: 12,
           ),
         ),
       ],

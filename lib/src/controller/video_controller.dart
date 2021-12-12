@@ -4,10 +4,10 @@ import 'package:flutter_application_1/src/model/youtuber.dart';
 import 'package:flutter_application_1/src/repository/youtube_repository.dart';
 import 'package:get/get.dart';
 
-class VideoConstroller extends GetxController {
+class VideoController extends GetxController {
   Video? video;
 
-  VideoConstroller({this.video});
+  VideoController({this.video});
 
   Rx<Statistics> statistics = Statistics().obs;
 
@@ -26,8 +26,9 @@ class VideoConstroller extends GetxController {
   }
 
   String get youtuberThumbnailUrl {
-    if (youtuber.value.snippet == null)
+    if (youtuber.value.snippet == null) {
       return "https://interactive-examples.mdn.mozilla.net/media/cc0-images/grapefruit-slice-332-332.jpg";
+    }
 
     return youtuber.value.snippet!.thumbnails.medium.url;
   }
