@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/src/model/video.dart';
+import 'package:html_unescape/html_unescape.dart';
+import 'package:intl/intl.dart';
 
-class Video extends StatelessWidget {
-  const Video({Key? key}) : super(key: key);
+class VideoItem extends StatelessWidget {
+  VideoItem({Key? key, required this.video}) : super(key: key);
+
+  final Video video;
+  final dynamic unescape = HtmlUnescape();
 
   @override
   Widget build(BuildContext context) {
@@ -13,13 +19,13 @@ class Video extends StatelessWidget {
     );
   }
 
-  Container _thumbnail() => Container(
-        height: 250,
-        color: Colors.grey,
+  Image _thumbnail() => Image.network(
+        video.snippet.thumbnails.high.url,
+        fit: BoxFit.cover,
       );
 
   Padding _simpDetailInfo() => Padding(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.only(top: 8, bottom: 16, left: 16, right: 16),
         child: Row(
           children: [
             const CircleAvatar(
@@ -37,34 +43,36 @@ class Video extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Flexible(
+                      Flexible(
                         child: Text(
-                          "삼시세끼삼시세끼삼시세끼삼시세끼삼시세끼삼시세끼삼시세끼 다시보기삼시세끼삼시세끼삼시세끼삼시세끼삼시세끼삼시세끼삼시세끼 다시보기삼시세끼삼시세끼삼시세끼삼시세끼삼시세끼삼시세끼삼시세끼 다시보기삼시세끼삼시세끼삼시세끼삼시세끼삼시세끼삼시세끼삼시세끼 다시보기",
+                          unescape.convert(video.snippet.title),
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(fontSize: 14),
                         ),
                       ),
                       const SizedBox(
                         width: 16,
                       ),
                       SizedBox(
-                        width: 24,
-                        height: 24,
+                        width: 18,
+                        height: 18,
                         child: IconButton(
                           padding: EdgeInsets.zero,
                           onPressed: () {},
                           icon: const Icon(
                             Icons.more_vert,
+                            size: 18,
                           ),
                         ),
                       )
                     ],
                   ),
-                  const Text(
-                    "TVN ENT · 조회수 9.9만회 · 10개월 전",
-                    style: TextStyle(
+                  Text(
+                    "${video.snippet.channelTitle} · 조회수 9.9만회 · ${DateFormat("yyyy-MM-dd").format(video.snippet.publishTime)}",
+                    style: const TextStyle(
                       color: Colors.black54,
-                      fontSize: 13,
+                      fontSize: 12,
                     ),
                   ),
                 ],

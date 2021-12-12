@@ -16,7 +16,7 @@ class App extends GetView<AppController> {
       body: Obx(() {
         switch (RouteName.values[controller.currentIndex.value]) {
           case RouteName.home:
-            return const Home();
+            return Home();
           case RouteName.explore:
             return const Explore();
           case RouteName.subs:
@@ -26,7 +26,7 @@ class App extends GetView<AppController> {
           case RouteName.add:
             break;
         }
-        return const Home();
+        return Home();
       }),
       bottomNavigationBar: AppBottomNavigationBar(controller: controller),
     );
