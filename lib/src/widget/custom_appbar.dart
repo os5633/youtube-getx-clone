@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class CustomAppBar extends StatelessWidget {
   const CustomAppBar({Key? key}) : super(key: key);
@@ -41,7 +42,9 @@ class CustomAppBar extends StatelessWidget {
           height: 24,
           child: IconButton(
             padding: EdgeInsets.zero,
-            onPressed: () {},
+            onPressed: () {
+              Get.toNamed("/search");
+            },
             icon: const Icon(
               Icons.search,
               color: Colors.black,
