@@ -10,7 +10,7 @@ List<GetPage> routes = [
   ),
   GetPage(
     name: "/videoview/:videoId",
-    page: () => const VideoView(),
+    page: () => VideoView(),
     binding: BindingsBuilder(
       () => Get.lazyPut<YoutubeViewController>(
         () => YoutubeViewController(),

@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/src/controller/youtube_view_controller.dart';
 
+import 'package:html_unescape/html_unescape.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class VideoView extends GetView<YoutubeViewController> {
-  const VideoView({Key? key}) : super(key: key);
+  VideoView({Key? key}) : super(key: key);
+  final dynamic unescape = HtmlUnescape();
 
   @override
   Widget build(BuildContext context) {
@@ -132,9 +134,7 @@ class VideoView extends GetView<YoutubeViewController> {
         _button(
             icon: Icons.thumb_up_alt_outlined,
             count: controller.videoController!.statistics.value.likeCount),
-        _button(
-            icon: Icons.thumb_down_alt_outlined,
-            count: controller.videoController!.statistics.value.dislikeCount),
+        _button(icon: Icons.thumb_down_alt_outlined, count: "싫어요"),
         _button(icon: Icons.share, count: "공유"),
         _button(icon: Icons.queue, count: "저장"),
       ],
@@ -182,7 +182,7 @@ class VideoView extends GetView<YoutubeViewController> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          controller.title,
+          unescape.convert(controller.title),
           style: const TextStyle(
             color: Colors.black,
             fontSize: 16,

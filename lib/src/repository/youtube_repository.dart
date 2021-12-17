@@ -14,7 +14,7 @@ class YoutubeRepository extends GetConnect {
 
   Future<YoutubeVideoResult?> loadViedos(String nextPageToken) async {
     String url =
-        "/youtube/v3/search?part=snippet&channelId=UC0fiLCwTmAukotCXYnqfj0A&maxResults=10&order=date&videoDefinition=high&type=video&key=AIzaSyDYhH_cjUEggirSbGI03B1Vg7YPX7vCrqE&pageToken=$nextPageToken";
+        "/youtube/v3/search?part=snippet&channelId=UC0fiLCwTmAukotCXYnqfj0A&maxResults=10&order=date&videoDefinition=high&type=video&key=AIzaSyChvrwdG2BDMtPTexbFnOpAqA2FPb0NoFs&pageToken=$nextPageToken";
     final res = await get(url);
 
     if (res.status.hasError) {
@@ -28,7 +28,7 @@ class YoutubeRepository extends GetConnect {
 
   Future<Statistics?> getVideoInfoById(String videoId) async {
     String url =
-        "/youtube/v3/videos?part=snippet,statistics&key=AIzaSyDYhH_cjUEggirSbGI03B1Vg7YPX7vCrqE&id=$videoId";
+        "/youtube/v3/videos?part=snippet,statistics&key=AIzaSyChvrwdG2BDMtPTexbFnOpAqA2FPb0NoFs&id=$videoId";
     final res = await get(url);
 
     if (res.status.hasError) {
@@ -43,7 +43,7 @@ class YoutubeRepository extends GetConnect {
 
   Future<Youtuber?> getYoutuberInfoById(String channelId) async {
     String url =
-        "/youtube/v3/channels?part=statistics,snippet&key=AIzaSyDYhH_cjUEggirSbGI03B1Vg7YPX7vCrqE&id=$channelId";
+        "/youtube/v3/channels?part=statistics,snippet&key=AIzaSyChvrwdG2BDMtPTexbFnOpAqA2FPb0NoFs&id=$channelId";
     final response = await get(url);
     if (response.status.hasError) {
       return Future.error(response.statusText.toString());
